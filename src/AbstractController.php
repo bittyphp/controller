@@ -25,6 +25,18 @@ abstract class AbstractController
     }
 
     /**
+     * Gets a container element.
+     *
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function get($id)
+    {
+        return $this->container->get($id);
+    }
+
+    /**
      * Redirects to a different route with the given parameters.
      *
      * @param string $name
