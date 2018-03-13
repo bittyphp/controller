@@ -12,11 +12,28 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractController
 {
     /**
+     * @var ContainerInterface
+     */
+    protected $container = null;
+
+    /**
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * Gets a container element.
+     *
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function get($id)
+    {
+        return $this->container->get($id);
     }
 
     /**

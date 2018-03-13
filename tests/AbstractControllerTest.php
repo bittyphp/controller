@@ -73,6 +73,28 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(302, $actual->getStatusCode());
     }
 
+    public function testGetCallsContainer()
+    {
+        $id = uniqid('service');
+
+        $this->container->expects($this->once())
+            ->method('get')
+            ->with($id);
+
+        $this->fixture->get($id);
+    }
+
+    public function testGetResponse()
+    {
+        $value = uniqid('value');
+
+        $this->container->method('get')->willReturn($value);
+
+        $actual = $this->fixture->get(uniqid());
+
+        $this->assertEquals($value, $actual);
+    }
+
     public function testRenderCallsContainer()
     {
         $view = $this->createView();
