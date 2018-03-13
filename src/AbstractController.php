@@ -12,6 +12,11 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractController
 {
     /**
+     * @var ContainerInterface
+     */
+    protected $container = null;
+
+    /**
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
