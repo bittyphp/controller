@@ -7,11 +7,11 @@ use Bitty\Controller\AbstractController;
 use Bitty\Http\Exception\InternalServerErrorException;
 use Bitty\Router\UriGeneratorInterface;
 use Bitty\View\ViewInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class AbstractControllerTest extends PHPUnit_Framework_TestCase
+class AbstractControllerTest extends TestCase
 {
     /**
      * @var AbstractController
@@ -27,7 +27,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->container = $this->getMock(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->fixture = $this->getMockForAbstractClass(AbstractController::class, [$this->container]);
     }
@@ -110,7 +110,8 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
     public function testRenderThrowsException()
     {
         $message = 'Container service "view" must be an instance of '.ViewInterface::class;
-        $this->setExpectedException(InternalServerErrorException::class, $message);
+        $this->expectException(InternalServerErrorException::class);
+        $this->expectExceptionMessage($message);
 
         $this->fixture->render(uniqid());
     }
@@ -152,7 +153,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      */
     protected function createUriGenerator($uri = '')
     {
-        $uriGenerator = $this->getMock(UriGeneratorInterface::class);
+        $uriGenerator = $this->createMock(UriGeneratorInterface::class);
         $uriGenerator->method('generate')->willReturn($uri);
 
         return $uriGenerator;
@@ -167,7 +168,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      */
     protected function createView($html = '')
     {
-        $view = $this->getMock(ViewInterface::class);
+        $view = $this->createMock(ViewInterface::class);
         $view->method('render')->willReturn($html);
 
         return $view;
