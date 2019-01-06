@@ -31,7 +31,7 @@ abstract class AbstractController
      *
      * @return mixed
      */
-    public function get($id)
+    public function get(string $id)
     {
         return $this->container->get($id);
     }
@@ -44,7 +44,7 @@ abstract class AbstractController
      *
      * @return ResponseInterface
      */
-    public function redirectToRoute($name, array $params = [])
+    public function redirectToRoute(string $name, array $params = []): ResponseInterface
     {
         $uri = $this->container->get('uri.generator')->generate($name, $params);
 
@@ -55,11 +55,11 @@ abstract class AbstractController
      * Renders an HTTP response using the template and given data.
      *
      * @param string $template Template to render.
-     * @param array $data Data to pass to template.
+     * @param mixed $data Data to pass to template.
      *
      * @return ResponseInterface
      */
-    public function render($template, array $data = [])
+    public function render(string $template, $data = []): ResponseInterface
     {
         $view = $this->container->get('view');
         if (!$view instanceof ViewInterface) {
