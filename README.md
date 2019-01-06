@@ -27,10 +27,11 @@ A simple wrapper exists around the container `get()` method purely to access ser
 namespace Acme\Controller;
 
 use Bitty\Controller\AbstractController;
+use Psr\Http\Message\ResponseInterface;
 
 class ExampleController extends AbstractController
 {
-    public function test()
+    public function test(): ResponseInterface
     {
         // Short method
         $myService = $this->get('some.service');
@@ -53,10 +54,11 @@ It is fairly common to need to redirect a user to a different route for various 
 namespace Acme\Controller;
 
 use Bitty\Controller\AbstractController;
+use Psr\Http\Message\ResponseInterface;
 
 class ExampleController extends AbstractController
 {
-    public function test()
+    public function test(): ResponseInterface
     {
         // Redirect to another route with optional parameters.
         return $this->redirectToRoute('some.route', ['foo' => 'bar']);
@@ -74,10 +76,11 @@ You can render templates as a response using the `render()` method. Note: This m
 namespace Acme\Controller;
 
 use Bitty\Controller\AbstractController;
+use Psr\Http\Message\ResponseInterface;
 
 class ExampleController extends AbstractController
 {
-    public function test()
+    public function test(): ResponseInterface
     {
         // Render a template with the given data
         return $this->render('some.template.html', ['foo' => 'bar']);
