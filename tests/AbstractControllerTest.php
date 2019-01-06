@@ -7,11 +7,12 @@ use Bitty\Controller\AbstractController;
 use Bitty\Http\Exception\InternalServerErrorException;
 use Bitty\Router\UriGeneratorInterface;
 use Bitty\View\ViewInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class AbstractControllerTest extends PHPUnit_Framework_TestCase
+class AbstractControllerTest extends TestCase
 {
     /**
      * @var AbstractController
@@ -19,24 +20,24 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
     protected $fixture = null;
 
     /**
-     * @var ContainerInterface
+     * @var ContainerInterface|MockObject
      */
     protected $container = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->container = $this->getMock(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->fixture = $this->getMockForAbstractClass(AbstractController::class, [$this->container]);
     }
 
-    public function testRedirectToRouteCallsContainer()
+    public function testRedirectToRouteCallsContainer(): void
     {
         $uriGenerator = $this->createUriGenerator();
 
-        $this->container->expects($this->once())
+        $this->container->expects(self::once())
             ->method('get')
             ->with('uri.generator')
             ->willReturn($uriGenerator);
@@ -44,7 +45,7 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
         $this->fixture->redirectToRoute(uniqid());
     }
 
-    public function testRedirectToRouteCallsUriGenerator()
+    public function testRedirectToRouteCallsUriGenerator(): void
     {
         $name         = uniqid('name');
         $params       = [uniqid('param')];
@@ -52,14 +53,14 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $this->container->method('get')->willReturn($uriGenerator);
 
-        $uriGenerator->expects($this->once())
+        $uriGenerator->expects(self::once())
             ->method('generate')
             ->with($name, $params);
 
         $this->fixture->redirectToRoute($name, $params);
     }
 
-    public function testRedirectToRouteResponse()
+    public function testRedirectToRouteResponse(): void
     {
         $uri          = uniqid('uri');
         $uriGenerator = $this->createUriGenerator($uri);
@@ -68,23 +69,23 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $actual = $this->fixture->redirectToRoute(uniqid());
 
-        $this->assertInstanceOf(ResponseInterface::class, $actual);
-        $this->assertEquals([$uri], $actual->getHeader('Location'));
-        $this->assertEquals(302, $actual->getStatusCode());
+        self::assertInstanceOf(ResponseInterface::class, $actual);
+        self::assertEquals([$uri], $actual->getHeader('Location'));
+        self::assertEquals(302, $actual->getStatusCode());
     }
 
-    public function testGetCallsContainer()
+    public function testGetCallsContainer(): void
     {
         $id = uniqid('service');
 
-        $this->container->expects($this->once())
+        $this->container->expects(self::once())
             ->method('get')
             ->with($id);
 
         $this->fixture->get($id);
     }
 
-    public function testGetResponse()
+    public function testGetResponse(): void
     {
         $value = uniqid('value');
 
@@ -92,14 +93,14 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $actual = $this->fixture->get(uniqid());
 
-        $this->assertEquals($value, $actual);
+        self::assertEquals($value, $actual);
     }
 
-    public function testRenderCallsContainer()
+    public function testRenderCallsContainer(): void
     {
         $view = $this->createView();
 
-        $this->container->expects($this->once())
+        $this->container->expects(self::once())
             ->method('get')
             ->with('view')
             ->willReturn($view);
@@ -107,15 +108,16 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
         $this->fixture->render(uniqid());
     }
 
-    public function testRenderThrowsException()
+    public function testRenderThrowsException(): void
     {
         $message = 'Container service "view" must be an instance of '.ViewInterface::class;
-        $this->setExpectedException(InternalServerErrorException::class, $message);
+        $this->expectException(InternalServerErrorException::class);
+        $this->expectExceptionMessage($message);
 
         $this->fixture->render(uniqid());
     }
 
-    public function testRenderCallsView()
+    public function testRenderCallsView(): void
     {
         $template = uniqid('template');
         $data     = [uniqid('data')];
@@ -123,14 +125,14 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $this->container->method('get')->willReturn($view);
 
-        $view->expects($this->once())
+        $view->expects(self::once())
             ->method('render')
             ->with($template, $data);
 
         $this->fixture->render($template, $data);
     }
 
-    public function testRenderResponse()
+    public function testRenderResponse(): void
     {
         $html = uniqid('html');
         $view = $this->createView($html);
@@ -139,8 +141,8 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
 
         $actual = $this->fixture->render(uniqid());
 
-        $this->assertInstanceOf(ResponseInterface::class, $actual);
-        $this->assertEquals($html, (string) $actual->getBody());
+        self::assertInstanceOf(ResponseInterface::class, $actual);
+        self::assertEquals($html, (string) $actual->getBody());
     }
 
     /**
@@ -148,11 +150,11 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      *
      * @param string $uri
      *
-     * @return UriGeneratorInterface
+     * @return UriGeneratorInterface|MockObject
      */
-    protected function createUriGenerator($uri = '')
+    protected function createUriGenerator($uri = ''): UriGeneratorInterface
     {
-        $uriGenerator = $this->getMock(UriGeneratorInterface::class);
+        $uriGenerator = $this->createMock(UriGeneratorInterface::class);
         $uriGenerator->method('generate')->willReturn($uri);
 
         return $uriGenerator;
@@ -163,11 +165,11 @@ class AbstractControllerTest extends PHPUnit_Framework_TestCase
      *
      * @param string $html
      *
-     * @return ViewInterface
+     * @return ViewInterface|MockObject
      */
-    protected function createView($html = '')
+    protected function createView($html = ''): ViewInterface
     {
-        $view = $this->getMock(ViewInterface::class);
+        $view = $this->createMock(ViewInterface::class);
         $view->method('render')->willReturn($html);
 
         return $view;
