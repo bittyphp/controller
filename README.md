@@ -1,9 +1,9 @@
 # Bitty Controller
 
-[![Build Status](https://travis-ci.org/bittyphp/bitty-controller.svg?branch=master)](https://travis-ci.org/bittyphp/bitty-controller)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/dc4b54b867cc44a5882dfb8c9fdc4ff5)](https://www.codacy.com/app/bittyphp/bitty-controller)
-[![Total Downloads](https://poser.pugx.org/bittyphp/bitty-controller/downloads)](https://packagist.org/packages/bittyphp/bitty-controller)
-[![License](https://poser.pugx.org/bittyphp/bitty-controller/license)](https://packagist.org/packages/bittyphp/bitty-controller)
+[![Build Status](https://travis-ci.org/bittyphp/controller.svg?branch=master)](https://travis-ci.org/bittyphp/controller)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/dc4b54b867cc44a5882dfb8c9fdc4ff5)](https://www.codacy.com/app/bittyphp/controller)
+[![Total Downloads](https://poser.pugx.org/bittyphp/controller/downloads)](https://packagist.org/packages/bittyphp/controller)
+[![License](https://poser.pugx.org/bittyphp/controller/license)](https://packagist.org/packages/bittyphp/controller)
 
 Abstract controller for Bitty.
 
@@ -14,7 +14,7 @@ This package is not required. It merely provides an abstract controller that can
 It's best to install using [Composer](https://getcomposer.org/).
 
 ```sh
-$ composer require bittyphp/bitty-controller
+$ composer require bittyphp/controller
 ```
 
 ## Container Access
@@ -68,7 +68,7 @@ class ExampleController extends AbstractController
 
 ## Rendering Templates
 
-You can render templates as a response using the `render()` method. Note: This method requires a `view` service to be defined that implements `Bitty\View\ViewInterface`. See the [View Layer](https://github.com/bittyphp/bitty-view) for what template engines are available or how to build your own.
+You can render templates as a response using the `render()` method. Note: This method requires a `view` service to be defined that implements `Bitty\View\ViewInterface`. See the [View Layer](https://github.com/bittyphp/view) for what template engines are available or how to build your own.
 
 ```php
 <?php
