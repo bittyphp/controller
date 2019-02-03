@@ -17,12 +17,12 @@ class AbstractControllerTest extends TestCase
     /**
      * @var AbstractController
      */
-    protected $fixture = null;
+    private $fixture = null;
 
     /**
      * @var ContainerInterface|MockObject
      */
-    protected $container = null;
+    private $container = null;
 
     protected function setUp(): void
     {
@@ -152,7 +152,7 @@ class AbstractControllerTest extends TestCase
      *
      * @return UriGeneratorInterface|MockObject
      */
-    protected function createUriGenerator($uri = ''): UriGeneratorInterface
+    private function createUriGenerator($uri = ''): UriGeneratorInterface
     {
         $uriGenerator = $this->createMock(UriGeneratorInterface::class);
         $uriGenerator->method('generate')->willReturn($uri);
@@ -167,7 +167,7 @@ class AbstractControllerTest extends TestCase
      *
      * @return ViewInterface|MockObject
      */
-    protected function createView($html = ''): ViewInterface
+    private function createView($html = ''): ViewInterface
     {
         $view = $this->createMock(ViewInterface::class);
         $view->method('render')->willReturn($html);
