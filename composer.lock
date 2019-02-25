@@ -111,16 +111,16 @@
         },
         {
             "name": "bittyphp/middleware",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bittyphp/middleware.git",
-                "reference": "ada0f6b20c5784de316b15440de281adb6da5b81"
+                "reference": "d2b1deb9b754eb0f649ce845ed65e182a7f261d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bittyphp/middleware/zipball/ada0f6b20c5784de316b15440de281adb6da5b81",
-                "reference": "ada0f6b20c5784de316b15440de281adb6da5b81",
+                "url": "https://api.github.com/repos/bittyphp/middleware/zipball/d2b1deb9b754eb0f649ce845ed65e182a7f261d9",
+                "reference": "d2b1deb9b754eb0f649ce845ed65e182a7f261d9",
                 "shasum": ""
             },
             "require": {
@@ -129,6 +129,10 @@
                 "psr/http-message": "^1.0",
                 "psr/http-server-handler": "^1.0",
                 "psr/http-server-middleware": "^1.0"
+            },
+            "provide": {
+                "psr/http-server-handler-implementation": "1.0",
+                "psr/http-server-middleware-implementation": "1.0"
             },
             "require-dev": {
                 "codacy/coverage": "^1.4",
@@ -159,20 +163,20 @@
                 }
             ],
             "description": "PSR-15 HTTP Middleware implementation.",
-            "time": "2019-01-19T22:19:09+00:00"
+            "time": "2019-01-19T23:10:57+00:00"
         },
         {
             "name": "bittyphp/router",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bittyphp/router.git",
-                "reference": "1101a0e94d546b68c93766f34f18ec770951295c"
+                "reference": "e4ce04ff8ef1b7adcc37bdc8508985d441627030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bittyphp/router/zipball/1101a0e94d546b68c93766f34f18ec770951295c",
-                "reference": "1101a0e94d546b68c93766f34f18ec770951295c",
+                "url": "https://api.github.com/repos/bittyphp/router/zipball/e4ce04ff8ef1b7adcc37bdc8508985d441627030",
+                "reference": "e4ce04ff8ef1b7adcc37bdc8508985d441627030",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +187,9 @@
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
+                "bizurkur/coding-standard": "^1.0",
                 "codacy/coverage": "^1.4",
+                "infection/infection": "^0.12.0",
                 "jakub-onderka/php-parallel-lint": "^1.0",
                 "localheinz/composer-normalize": "^1.1",
                 "phing/phing": "^2.16",
@@ -210,8 +216,8 @@
                     "email": "bizurkur@gmail.com"
                 }
             ],
-            "description": "HTTP Router implementation.",
-            "time": "2019-01-19T22:36:44+00:00"
+            "description": "HTTP Router middleware.",
+            "time": "2019-02-24T00:29:37+00:00"
         },
         {
             "name": "bittyphp/view",
