@@ -148,14 +148,14 @@ class AbstractControllerTest extends TestCase
     /**
      * Creates a URI generator.
      *
-     * @param string $uri
+     * @param string|null $uri
      *
      * @return UriGeneratorInterface|MockObject
      */
-    private function createUriGenerator($uri = ''): UriGeneratorInterface
+    private function createUriGenerator(?string $uri = null): UriGeneratorInterface
     {
         $uriGenerator = $this->createMock(UriGeneratorInterface::class);
-        $uriGenerator->method('generate')->willReturn($uri);
+        $uriGenerator->method('generate')->willReturn($uri ?? uniqid());
 
         return $uriGenerator;
     }
@@ -167,7 +167,7 @@ class AbstractControllerTest extends TestCase
      *
      * @return ViewInterface|MockObject
      */
-    private function createView($html = ''): ViewInterface
+    private function createView(string $html = ''): ViewInterface
     {
         $view = $this->createMock(ViewInterface::class);
         $view->method('render')->willReturn($html);
